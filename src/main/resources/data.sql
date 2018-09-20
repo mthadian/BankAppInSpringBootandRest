@@ -1,0 +1,7 @@
+insert into accounts values(10001,234655,101)
+insert into customers values(101,'May','Komu','Salan')
+insert into accounts values(10002,23655,101)
+insert into customers values(102,'Ken','Mayfair','Osam')
+insert into accounts values(10004,2365,102)
+insert into accounts values(10006,2364,102)
+insert into accounts values(10011,2365,102)
