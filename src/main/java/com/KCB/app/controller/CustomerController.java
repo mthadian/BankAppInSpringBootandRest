@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.KCB.app.dao.customerRepo;
-import com.KCB.app.model.Accounts;
 import com.KCB.app.model.Customers;
 
 
@@ -37,21 +34,17 @@ public class CustomerController
 		return "home.jsp";
 	}
 	 */
-	@RequestMapping("/addCustomer")
-	public String addCustomer(Customers customer)
-	{
-		Crepo.save(customer);
-        return "index.jsp";
-	}
 	
-	@PostMapping("/Customers/add")
+	//REST starts here
+	
+	@PostMapping("/Customers")
 	public Customers addPCustomers(@RequestBody Customers customer)
 	{
 		Crepo.save(customer);
 		return customer;
 	}
 	
-	@PutMapping("/Customers/edit")
+	@PutMapping("/Customers")
 	
 	public Customers updateCustomers(@RequestBody Customers customer)
 	{
@@ -59,6 +52,12 @@ public class CustomerController
 		return customer;
 	}
 	
+	@GetMapping("/Customers")
+	public List<Customers> getCustomers()
+	{
+		return Crepo.findAll();
+	}
+
 	@DeleteMapping("/Customers/delete/{Cid}")
 	public String deleteCustomer(@PathVariable() int Cid)
 	{
@@ -68,6 +67,22 @@ public class CustomerController
 		
 	}
 	
+	@GetMapping("/Customers/id/{Cid}")
+	public Optional<Customers> getCusId(@PathVariable("Cid") int Cid)
+	{
+		return Crepo.findById(Cid);
+	}
+	
+	//REST ends here
+	
+	@RequestMapping("/addCustomer")
+	public String addCustomer(Customers customer)
+	{
+		Crepo.save(customer);
+        return "index.jsp";
+	}
+	
+	
 	//Returns the customer on UI
 	@GetMapping("/getCustomer")
 	public String getCustomer(Model model,@RequestParam int Cid)
@@ -76,16 +91,7 @@ public class CustomerController
 		return "customers.jsp";
 	}
 	
-	@GetMapping("/Customers/all")
-	public List<Customers> getCustomers()
-	{
-		return Crepo.findAll();
-	}
 	
-	@GetMapping("/Customers/id/{Cid}")
-	public Optional<Customers> getCusId(@PathVariable("Cid") int Cid)
-	{
-		return Crepo.findById(Cid);
-	}
+
 
 }

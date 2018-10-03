@@ -1,7 +1,10 @@
 package com.KCB.app.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Customers
@@ -11,8 +14,15 @@ public class Customers
 	private String firstName;
 	private String middleName;
 	private String lastName;
+	private int mobileNumber;
+	
+	//@OneToMany(mappedBy="cus")
+	//private List<Accounts> accounts;
 
-	public int getCid() {
+	
+
+	public int getCid() 
+	{
 		return Cid;
 	}
 
@@ -43,10 +53,22 @@ public class Customers
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String toString()
-	{
-		return "Customer [Cid="+ Cid +", firstName="+ firstName +", middleName="+ middleName +", lastName="+lastName+"]";
+	
+	public int getMobileNumber() {
+		return mobileNumber;
 	}
+
+	public void setMobileNumber(int mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	@Override
+	public String toString() {
+		return "Customers [Cid=" + Cid + ", firstName=" + firstName + ", middleName=" + middleName + ", lastName="
+				+ lastName + ", mobileNumber=" + mobileNumber + "]";
+	}
+
+	
 
 
 	

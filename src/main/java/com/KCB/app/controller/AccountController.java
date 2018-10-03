@@ -20,31 +20,32 @@ import com.KCB.app.dao.accountRepo;
 import com.KCB.app.model.Accounts;
 
 @RestController
+
 public class AccountController 
 {
 	@Autowired
 	
 	accountRepo a_Repo;
 	
-	@RequestMapping("/addAccount")
-	public String addAccount(Accounts account)
-	{
-		a_Repo.save(account);
-		return "accounts.jsp";
-	}
-	
-	@PostMapping("/Accounts/add")
+	//REST starts here
+	@PostMapping("/Accounts")
 	public Accounts addPAccount(@RequestBody Accounts account)
 	{
 		a_Repo.save(account);
 		return account;
 	}
 	
-	@PutMapping("/Accounts/edit")
+	@PutMapping("/Accounts")
 	public Accounts editAccounts(@RequestBody Accounts account)
 	{
 		a_Repo.save(account);
 		return account;
+	}
+	
+	@GetMapping("/Accounts")
+	public List<Accounts> getAllAccounts()
+	{
+		return a_Repo.findAll();
 	}
 	
 	@DeleteMapping("/Accounts/delete/{AccId}")
@@ -53,6 +54,23 @@ public class AccountController
 		Accounts acc=a_Repo.getOne(AccId);
 		a_Repo.delete(acc);
 		return "Account deleted";
+	}
+	
+	@GetMapping("/Accounts/Customer/{CusId}") 
+	public List<Accounts> getCustomerAccounts(@PathVariable("CusId") int customerId)
+	{
+		
+		return a_Repo.findByCustomerId(customerId);
+	}
+	
+	//REST ends here
+	
+	
+	@RequestMapping("/addAccount")
+	public String addAccount(Accounts account)
+	{
+		a_Repo.save(account);
+		return "accounts.jsp";
 	}
 	
 	
@@ -73,14 +91,9 @@ public class AccountController
 		return "getAccount.jsp";
 	}
 	
-	@GetMapping("/Accounts/all")
-	public List<Accounts> getAllAccounts()
-	{
-		return a_Repo.findAll();
-	}
+
 	
-	@GetMapping("/getcusAccounts")
-	
+	@GetMapping("/getcusAccounts")	
 	public String getcusAccounts(Model model,@RequestParam int customerId)
 	{
 		model.addAttribute("message", a_Repo.findByCustomerId(customerId));
@@ -97,13 +110,7 @@ public class AccountController
 		return a_Repo.findByCustomerId(customerId);
 	}
 	
-	@GetMapping("/CustomerAccounts/id/{AccId}")
-	
-	public List<Accounts> getCustomerAccounts(@PathVariable("AccId") int customerId)
-	{
-		
-		return a_Repo.findByCustomerId(customerId);
-	}
+
 	
 	@GetMapping("/Accounts/id/{AccId}")
 	public Optional<Accounts> getAccountsById(@PathVariable("AccId") int AccId)

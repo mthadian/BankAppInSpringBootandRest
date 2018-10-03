@@ -1,11 +1,12 @@
 package com.KCB.app.model;
 
+
 import javax.persistence.Entity;
 //import javax.persistence.GeneratedValue;
 //import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
 
 @Entity
 public class Accounts
@@ -15,42 +16,49 @@ public class Accounts
 	private int customerId;
 	private int AccountBalance;
 	
+	//@ManyToOne
+	//private Customers cus;
 	
-	public void setAccId(int AccId)
-	{
-		this.AccId=AccId;
-	}
-	public int getAccId()
+	
+
+	public int getAccId() 
 	{
 		return AccId;
 	}
-	
-	//Customer Id
-	public void setCustomerId(int customerId)
+
+
+	public void setAccId(int accId) 
 	{
-		this.customerId=customerId;
+		AccId = accId;
 	}
-	public int getCustomerId()
+
+	public int getCustomerId() 
 	{
 		return customerId;
 	}
-	
-	//Get AccountBalance
-	
-	public void setAccountBalance(int AccountBalance)
+
+
+	public void setCustomerId(int customerId)
 	{
-		this.AccountBalance=AccountBalance;
+		this.customerId = customerId;
 	}
-	
-	public int getAccountBalance()
+
+	public int getAccountBalance() 
 	{
 		return AccountBalance;
 	}
-	
-	
-	public String toString()
+
+	public void setAccountBalance(int accountBalance) 
 	{
-		return "Customer [AccId="+ AccId +", CustomerId="+ customerId +", AccountBalance="+ AccountBalance +"]";
+		AccountBalance = accountBalance;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Accounts [AccId=" + AccId + ", customerId=" + customerId + ", AccountBalance=" + AccountBalance + "]";
+	}
+
+	
 
 }
